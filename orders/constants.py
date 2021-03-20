@@ -5,7 +5,7 @@ PAYMENT_CANCELED = 3
 PAYMENT_STATUS_CHOICES = (
     (PAYMENT_PENDING, 'Pending'),
     (PAYMENT_CONFIRMED, 'Confirmed'),
-    (PAYMENT_CANCELED, 'Cancelled'),
+    (PAYMENT_CANCELED, 'Canceled'),
 )
 
 ORDER_PENDING = 1
@@ -15,5 +15,5 @@ ORDER_CANCELED = 3
 ORDER_STATUS_CHOICES = (
     (ORDER_PENDING, 'Pending'),
     (ORDER_CONFIRMED, 'Confirmed'),
-    (ORDER_CANCELED, 'Cancelled'),
+    (ORDER_CANCELED, 'Canceled'),
 )

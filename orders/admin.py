@@ -1,6 +1,10 @@
 from django.contrib import admin
+from django.db.models import Sum, DecimalField, F
+from import_export.admin import ExportMixin
 
 from .models import Order, OrderItem
+from .resources import OrderResource
+
 
 class OrderItemAdmin(admin.ModelAdmin):
     model = OrderItem
@@ -27,7 +31,8 @@ class OrderItemInline(admin.TabularInline):
     readonly_fields = ['price']
 
 
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(ExportMixin, admin.ModelAdmin):
+    resource_class = OrderResource
     search_fields = [
         'items__product__name',
         'items__product__sku_id',
@@ -50,6 +55,14 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['payment_status', 'order_status']
     inlines = [OrderItemInline]
     date_hierarchy = 'created_at'
+
+    def get_export_queryset(self, request):
+        return super().get_export_queryset(request).annotate(
+            total_revenue=Sum(
+                (F('items__price') * F('items__quantity')) - F('discount'),
+                output_field=DecimalField()
+            )
+        ).order_by('id')
 
 
 admin.site.register(Order, OrderAdmin)

@@ -19,10 +19,10 @@ from products.models import Product
 
 
 class AdminRequiredMixin(AccessMixin):
-    """Verify that the current user is authenticated and is admin."""
     login_url = reverse_lazy('admin:login')
 
     def dispatch(self, request, *args, **kwargs):
+        """Verify that the current user is authenticated and is admin."""
         if not request.user.is_authenticated or not request.user.is_superuser:
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
