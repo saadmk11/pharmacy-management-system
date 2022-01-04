@@ -13,7 +13,12 @@ from django.db.models.functions import TruncMonth, Coalesce
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 
-from orders.constants import ORDER_PENDING, ORDER_CONFIRMED, ORDER_CANCELED, PAYMENT_CONFIRMED
+from orders.constants import (
+    ORDER_PENDING,
+    ORDER_CONFIRMED,
+    ORDER_CANCELED,
+    PAYMENT_CONFIRMED,
+)
 from orders.models import Order, OrderItem
 from products.models import Product
 
